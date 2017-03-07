@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package System;
+package SmartWMS;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -12,13 +12,21 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import DataBase.DBModel;
 
 /**
  *
  * @author Tech Devil
  */
-public class System extends Application {
+public class SmartWMS extends Application {
+    
+    
+    public SmartWMS() {
+        DBModel model = new DBModel();
+        model.createDataBase();
+    }
 
     /**
      * @param args the command line arguments
@@ -30,13 +38,18 @@ public class System extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/View/Login.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-            // TODO customize primaryStage
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Smart Warehouse Management System");
+            primaryStage.getIcons().add(new Image("/Images/icon.png"));
+            primaryStage.setMaximized(false);
+            primaryStage.setMinHeight(500.0);
+            primaryStage.setMinWidth(850.0);
             primaryStage.show();
         } catch (IOException ex) {
-            Logger.getLogger(System.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SmartWMS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
