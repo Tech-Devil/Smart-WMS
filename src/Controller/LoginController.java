@@ -62,12 +62,15 @@ public class LoginController implements Initializable {
 
     CustomTf cTF = new CustomTf();
     CustomPf cPF = new CustomPf();
+    
     @FXML
     private Button btnLogin;
 
     private PreparedStatement pst;
     private Connection con;
     private ResultSet rs;
+    
+    
     @FXML
     private AnchorPane apMother;
     @FXML
@@ -103,7 +106,7 @@ public class LoginController implements Initializable {
                 pst = con.prepareStatement("SELECT Id FROM " + db + ".User ORDER BY Id ASC LIMIT 1");
                 rs = pst.executeQuery();
                 if (rs.next()) {
-                    apMother.setOpacity(0.7);
+//                    apMother.setOpacity(0.7);
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText("Error");
@@ -111,7 +114,7 @@ public class LoginController implements Initializable {
                     alert.initStyle(StageStyle.UNDECORATED);
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
-                        apMother.setOpacity(1.0);
+//                        apMother.setOpacity(1.0);
                     }
                     return;
                 }
@@ -233,7 +236,7 @@ public class LoginController implements Initializable {
             Scene scene = new Scene(root);
             Stage nStage = new Stage();
             nStage.setScene(scene);
-            nStage.setMaximized(true);
+//            nStage.setMaximized(true);
             nStage.setTitle("Registration -SmartWMS");
             nStage.show();
             Stage stage = (Stage) hlCrateAccount.getScene().getWindow();

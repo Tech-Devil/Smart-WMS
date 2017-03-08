@@ -49,11 +49,11 @@
                                         <GridPane layoutX="5.0" layoutY="83.0" prefHeight="97.0" prefWidth="281.0" vgap="10.0">
                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints />
+
                                             </columnConstraints>
                                             <rowConstraints>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints />
+
                                             </rowConstraints>
                                             <children>
                                                 <TextField fx:id="tfUserName" onAction="#pfUserNameOnHitEnter" promptText="User Name" GridPane.columnSpan="2" />
