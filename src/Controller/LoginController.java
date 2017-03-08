@@ -106,7 +106,7 @@ public class LoginController implements Initializable {
                 pst = con.prepareStatement("SELECT Id FROM " + db + ".User ORDER BY Id ASC LIMIT 1");
                 rs = pst.executeQuery();
                 if (rs.next()) {
-//                    apMother.setOpacity(0.7);
+                    apMother.setOpacity(0.7);
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText("Error");
@@ -114,7 +114,7 @@ public class LoginController implements Initializable {
                     alert.initStyle(StageStyle.UNDECORATED);
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
-//                        apMother.setOpacity(1.0);
+                        apMother.setOpacity(1.0);
                     }
                     return;
                 }
