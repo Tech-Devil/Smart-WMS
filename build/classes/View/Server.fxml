@@ -32,6 +32,13 @@
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Label text="MySQL host :" GridPane.rowIndex="1" />
@@ -42,7 +49,7 @@
                                 <TextField fx:id="thPort" text="3306" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                 <Label fx:id="lablServerStatus" text="Server off" GridPane.columnIndex="1" />
                                 <Label text="MySQL Database :" GridPane.rowIndex="3" />
-                                <TextField fx:id="tfDBName" text="System" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <TextField fx:id="tfDBName" text="SmartWMS" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <TextField fx:id="tfUserName" text="root" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                 <PasswordField fx:id="pfPassword" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                 <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
