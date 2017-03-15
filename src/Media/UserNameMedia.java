@@ -3,25 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Media;
+package media;
 
 /**
  *
  * @author Tech Devil
  */
-public class UserNameMedia {
+public class userNameMedia {
     
-    String Id;
+   String Id;
    String usrName;
 
-    public UserNameMedia() {
+    public userNameMedia() {
     }
 
-    public UserNameMedia(String Id) {
+    public userNameMedia(String Id) {
         this.Id = Id;
     }
 
-    public UserNameMedia(String id, String usrName) {
+    public userNameMedia(String id, String usrName) {
         this.Id = id;
         this.usrName = usrName;
     }

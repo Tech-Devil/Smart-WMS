@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Custom;
+package custom;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,8 +18,8 @@ import javafx.scene.input.KeyEvent;
 public class CustomPf {
 
     public void clearPassFieldByButton(PasswordField value, Button btn) {
-        btn.setVisible(false);
 
+        btn.setVisible(false);
         value.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -38,6 +38,7 @@ public class CustomPf {
                 value.requestFocus();
             }
         });
+        
     }
-
+    
 }

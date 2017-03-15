@@ -5,21 +5,20 @@
  */
 package Data;
 
-import java.sql.Blob;
+import List.ListEmployee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
+import java.sql.*;
 
 /**
  *
  * @author Tech Devil
  */
 public class Users {
-    
+
     public ObservableList<String> allUser = FXCollections.observableArrayList();
-    //public ObservableList<ListEmployee> employeeLists = FXCollections.observableArrayList();
-    
-    
+
     public String id;
     public String userName;
     public String fullName;
@@ -34,5 +33,7 @@ public class Users {
     public String date;
     public String creatorId;
     public Image image;
-    
+
+    public ObservableList<ListEmployee> employeeLists = FXCollections.observableArrayList();
+
 }

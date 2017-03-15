@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataBase;
+package dataBase;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * @author Tech Devil
  */
 public class DBConnection {
-    
+
     Properties properties = new Properties();
     InputStream inputStream;
 
@@ -30,9 +30,8 @@ public class DBConnection {
     String user;
     String pass;
     String unicode = "?useUnicode=yes&characterEncoding=UTF-8";
-    
-    public void loadPropertiesFile(){
-        
+
+    public void loadPropertiesFile() {
         try {
             inputStream = new FileInputStream("database.properties");
             properties.load(inputStream);
@@ -40,38 +39,37 @@ public class DBConnection {
             user = properties.getProperty("user");
             pass = properties.getProperty("password");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("DDDD");
         }
-        
+
     }
-    
-    
-    public Connection mkDataBase() throws SQLException{
-        
+
+    public Connection mkDataBase() throws SQLException {
+
         loadPropertiesFile();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return con;
-        
+
     }
-    
+
     public Connection geConnection() {
-        
+
         loadPropertiesFile();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url + unicode, user, pass);
-            
+
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return con;
-        
+
     }
-    
-    
+
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,11 +22,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-
 import Data.Users;
-import Custom.CustomTf;
-import Custom.CustomPf;
-import DataBase.DBProperties;
+import custom.CustomTf;
+import custom.CustomPf;
+import dataBase.DBProperties;
 import java.sql.SQLException;
 import java.util.Optional;
 import javafx.beans.binding.BooleanBinding;
@@ -39,11 +38,10 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import DataBase.DBConnection;
-import Media.UserNameMedia;
+import dataBase.DBConnection;
+import media.userNameMedia;
 
 /**
- * FXML Controller class
  *
  * @author Tech Devil
  */
@@ -62,15 +60,14 @@ public class LoginController implements Initializable {
 
     CustomTf cTF = new CustomTf();
     CustomPf cPF = new CustomPf();
-    
+
     @FXML
     private Button btnLogin;
 
     private PreparedStatement pst;
     private Connection con;
     private ResultSet rs;
-    
-    
+
     @FXML
     private AnchorPane apMother;
     @FXML
@@ -110,7 +107,7 @@ public class LoginController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText("Error");
-                    alert.setContentText("You can't create an account without admin \n permission");
+                    alert.setContentText("You can't create an account without admin's permission");
                     alert.initStyle(StageStyle.UNDECORATED);
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -122,7 +119,6 @@ public class LoginController implements Initializable {
                 pst.close();
                 rs.close();
                 loadRegistration();
-
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -130,41 +126,44 @@ public class LoginController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error : Server Not Found");
-            alert.setContentText("Make sure your mysql is Start properly, \n");
+            alert.setContentText("Make sure your MySQLl is Started properly\n");
             alert.initStyle(StageStyle.UNDECORATED);
             alert.showAndWait();
+            
         }
+        
     }
 
     @FXML
     private void pfUserNameOnHitEnter(ActionEvent event) {
+        
         try {
             btnLogin(event);
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     @FXML
     private void pfUserPassOnHitEnter(ActionEvent event) {
+        
         try {
             btnLogin(event);
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     @FXML
     private void btnLogin(ActionEvent event) throws IOException {
 
- 
         DBConnection dbCon = new DBConnection();
         con = dbCon.geConnection();
         if (con != null) {
-
-
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/View/Application.fxml"));
+            loader.setLocation(getClass().getResource("/view/Application.fxml"));
             loader.load();
             Parent parent = loader.getRoot();
             Scene adminPanelScene = new Scene(parent);
@@ -177,41 +176,44 @@ public class LoginController implements Initializable {
                     pst.setString(2, pfUserPassword.getText());
                     rs = pst.executeQuery();
                     if (rs.next()) {
-                        UserNameMedia usrNameMedia = new UserNameMedia(rs.getString(1), rs.getString(2));
-                        // TODO Controller
+                        userNameMedia usrNameMedia = new userNameMedia(rs.getString(1), rs.getString(2));
+                        ApplicationController apControl = loader.getController();
+                        apControl.setUsrNameMedia(usrNameMedia);
+                        apControl.btnHomeOnClick(event);
+                        apControl.permission();
+                        apControl.viewDetails();
                         adminPanelStage.setScene(adminPanelScene);
-                        adminPanelStage.getIcons().add(new Image("/Images/icon.png"));
+                        adminPanelStage.getIcons().add(new Image("/image/icon.png"));
                         adminPanelStage.setTitle(rs.getString(3));
                         adminPanelStage.show();
-
                         Stage stage = (Stage) btnLogin.getScene().getWindow();
                         stage.close();
                     } else {
                         System.out.println("Password Not Match");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Password Not Match");
-                        alert.setHeaderText("Error : Name or Pass Not matched");
-                        alert.setContentText("User Name or Password not matched \ntry Again");
+                        alert.setHeaderText("Error : Name or Password not matched");
+                        alert.setContentText("User Name or Password not matched\nTry Again");
                         alert.initStyle(StageStyle.UNDECORATED);
                         alert.showAndWait();
                     }
-
                 } catch (SQLException ex) {
                     Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error : Server Not Found");
-            alert.setContentText("Make sure your mysql is Start properly, \n");
+            alert.setContentText("Make sure your MySQL is started properly\n");
             alert.initStyle(StageStyle.UNDECORATED);
             alert.showAndWait();
         }
+        
     }
-    
+
     private boolean isValidCondition() {
+        
         boolean validCondition = false;
         if (tfUserName.getText().trim().isEmpty()
                 || pfUserPassword.getText().isEmpty()) {
@@ -221,18 +223,19 @@ public class LoginController implements Initializable {
             alert.setContentText("Please Fill Text Field And Password Properly");
             alert.initStyle(StageStyle.UNDECORATED);
             alert.showAndWait();
-
             validCondition = false;
         } else {
             validCondition = true;
         }
         return validCondition;
+        
     }
-    
+
     private void loadRegistration() {
+        
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/View/Registration.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/Registration.fxml"));
             Scene scene = new Scene(root);
             Stage nStage = new Stage();
             nStage.setScene(scene);
@@ -252,7 +255,7 @@ public class LoginController implements Initializable {
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/View/Server.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/Server.fxml"));
             Scene scene = new Scene(root);
             Stage nStage = new Stage();
             nStage.setScene(scene);
@@ -262,5 +265,7 @@ public class LoginController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
     }
+    
 }

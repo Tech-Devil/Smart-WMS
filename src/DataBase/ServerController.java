@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataBase;
+package dataBase;
 
+
+import SmartWMS.SmartWMS;
+import controller.RegistrationController;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URL;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -34,7 +39,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- * FXML Controller class
  *
  * @author Tech Devil
  */
@@ -45,55 +49,55 @@ public class ServerController implements Initializable {
     @FXML
     private TextField thPort;
     @FXML
-    private Label lablServerStatus;
-    @FXML
-    private TextField tfDBName;
-    @FXML
-    private TextField tfUserName;
-    @FXML
     private PasswordField pfPassword;
     @FXML
     private Button btnConnect;
     @FXML
     private Button btnReset;
+    @FXML
+    private Label lablServerStatus;
+    @FXML
+    private TextField tfDBName;
+    @FXML
+    private TextField tfUserName;
 
     Properties properties = new Properties();
     InputStream inputStream;
     OutputStream output = null;
-
+    
     Connection con;
-
+    
     String url;
     String user;
     String pass;
-    String unicode = "?useUnicode=yes&characterEncoding=UTF-8";
+    String unicode= "?useUnicode=yes&characterEncoding=UTF-8";
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         checkSQLStatus();
         getDataFromFile();
+        
     }
 
     @FXML
     private void btnConnectOnAction(ActionEvent event) {
         mkDbProperties();
+
     }
 
     @FXML
     private void btnResetOnAction(ActionEvent event) {
-//                                                                                ****************************************
     }
-
-    public void getDataFromFile() {
+    
+    public void getDataFromFile(){
+        
         try {
             inputStream = new FileInputStream("database.properties");
-
             properties.load(inputStream);
-            System.err.println("Host : " + properties.getProperty("host"));
+            System.err.println("Host : "+ properties.getProperty("host"));
             tfHost.setText(properties.getProperty("host"));
             tfDBName.setText(properties.getProperty("db"));
             tfUserName.setText(properties.getProperty("user"));
@@ -105,12 +109,13 @@ public class ServerController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     public void mkDbProperties() {
+        
         try {
-            output = new FileOutputStream("database.properties");
-
+            output = new FileOutputStream("database.properties");    
             properties.setProperty("host", tfHost.getText().trim());
             properties.setProperty("port", thPort.getText().trim());
             properties.setProperty("db", tfDBName.getText().trim());
@@ -123,14 +128,14 @@ public class ServerController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Server connect successfully");
                 alert.setHeaderText("Login now");
-                alert.setContentText("Server has been connected sucessfully \n to login now click ok");
+                alert.setContentText("Server has been connected successfully\nTo login now click OK");
                 alert.initStyle(StageStyle.UNDECORATED);
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     Stage stage = (Stage) thPort.getScene().getWindow();
                     stage.close();
                 }
-            } else {
+            }else{
                 Alert error_alert = new Alert(Alert.AlertType.ERROR);
                 error_alert.setTitle("Can't connect with mysql");
                 error_alert.setHeaderText("Can't connect to mysql server");
@@ -139,15 +144,17 @@ public class ServerController implements Initializable {
                 error_alert.show();
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SmartWMS.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SmartWMS.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     public void checkSQLStatus() {
+        
         try {
             inputStream = new FileInputStream("database.properties");
             String host = properties.getProperty("host");
@@ -159,29 +166,35 @@ public class ServerController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
     
     public void loadPropertiesFile(){
+        
         try {
             inputStream = new FileInputStream("database.properties");
             properties.load(inputStream);
             url = "jdbc:mysql://"+properties.getProperty("host")+":"+properties.getProperty("port")+"/";
             user = properties.getProperty("user");
             pass = properties.getProperty("password");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        } catch (IOException ex) {
+            Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     private boolean dbConnect() {
+        
         loadPropertiesFile();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url + unicode  , user, pass);
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Too Many Connection");
+            System.out.println("Too Many Connections");
         }
         return false;
+        
     }
+
 }
