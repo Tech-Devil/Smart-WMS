@@ -216,7 +216,7 @@ public class DBModel {
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
-                stage.setTitle("Server Configur");
+                stage.setTitle("Server Configure");
                 stage.showAndWait();
             } catch (IOException ex1) {
                 Logger.getLogger(DBModel.class.getName()).log(Level.SEVERE, null, ex1);

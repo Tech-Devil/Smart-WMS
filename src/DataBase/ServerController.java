@@ -90,6 +90,11 @@ public class ServerController implements Initializable {
 
     @FXML
     private void btnResetOnAction(ActionEvent event) {
+        tfHost.setText("");
+        thPort.setText("");
+        tfDBName.setText("");
+        tfUserName.setText("");
+        pfPassword.setText("");
     }
     
     public void getDataFromFile(){
